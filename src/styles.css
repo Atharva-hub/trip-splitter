@@ -308,33 +308,40 @@ td.number {
   margin: 0 auto;
 }
 
-.form {
-  display: grid;
-  gap: 1.1rem 1.25rem;
-  max-width: 640px;
+.form-card {
   padding: 1.5rem;
   background-color: #ffffff;
   border: 1px solid #e5e7eb;
-  border-radius: 10px;
+  border-radius: 16px;
   box-shadow: 0 1px 3px rgba(16, 24, 40, 0.08);
 }
 
-@media (min-width: 600px) {
-  .form {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .form > .field:first-child,
-  .form > fieldset,
-  .form > .actions {
-    grid-column: 1 / -1;
-  }
+.form-card h1 {
+  margin-bottom: 0.25rem;
 }
+
+.form-subtitle {
+  margin: 0 0 1.5rem 0;
+  color: #6b7280;
+}
+
+.expense-form {
+  display: grid;
+  gap: 1.1rem;
+}
+
 
 .field {
   display: flex;
   flex-direction: column;
   gap: 0.3rem;
+}
+
+.label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.5rem;
 }
 
 label {
@@ -347,11 +354,11 @@ input[type='date'],
 select {
   width: 100%;
   font: inherit;
-  padding: 0.55rem 0.7rem;
+  padding: 0.6rem 0.75rem;
   background-color: #ffffff;
   color: #111827;
   border: 1px solid #d1d5db;
-  border-radius: 6px;
+  border-radius: 8px;
 }
 
 input[type='text']:hover,
@@ -369,8 +376,8 @@ select:focus {
 
 input[type='radio'],
 input[type='checkbox'] {
-  width: 1.05rem;
-  height: 1.05rem;
+  width: 1.1rem;
+  height: 1.1rem;
   margin: 0;
   accent-color: #4338ca;
 }
@@ -390,68 +397,267 @@ select[aria-invalid='true'] {
 
 fieldset {
   margin: 0;
-  padding: 1rem;
+  padding: 0;
   min-width: 0;
-  border: 1px solid #e5e7eb;
-  border-radius: 10px;
+  border: none;
 }
 
 legend {
-  padding: 0 0.4rem;
+  padding: 0;
+  margin-bottom: 0.5rem;
   font-weight: 700;
 }
 
-.split {
-  background-color: #fafbfd;
+.counter {
+  font-size: 0.8rem;
+  color: #6b7280;
 }
 
-.radio-row {
+.counter.over {
+  color: #b3261e;
+  font-weight: 700;
+}
+
+
+/* Amount: the big highlighted box at the top */
+.amount-card {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 0.9rem 1rem 1rem 1rem;
+  background-color: #f3f2ff;
+  border: 1px solid #dcd9fb;
+  border-radius: 12px;
 }
 
-.choice {
-  display: inline-flex;
+.amount-input {
+  position: relative;
+}
+
+.amount-symbol {
+  position: absolute;
+  left: 0.9rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.5rem;
+  font-weight: 700;
+  pointer-events: none;
+}
+
+.amount-input input[type='text'] {
+  padding: 0.55rem 0.8rem 0.55rem 2.3rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.row-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+/* The calendar icon sitting inside the left edge of the date box */
+.with-icon {
+  position: relative;
+}
+
+.with-icon .icon {
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.with-icon select,
+.with-icon input {
+  padding-left: 2.4rem;
+}
+
+
+/* Split method: three cards in a row, the chosen one is highlighted */
+.segmented {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.6rem;
+}
+
+.segment {
+  display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
+  padding: 0.7rem 0.5rem;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
   font-weight: 500;
+  text-align: center;
   cursor: pointer;
 }
 
-.radio-row .choice {
-  padding: 0.45rem 0.9rem;
-  background-color: #ffffff;
-  border: 1px solid #e5e7eb;
-  border-radius: 999px;
-}
-
-.radio-row .choice:hover {
+.segment:hover {
   border-color: #d1d5db;
 }
 
-.radio-row .choice:has(input:checked) {
+.segment:has(input:checked) {
   background-color: #eef0ff;
   border-color: #4338ca;
   color: #3730a3;
   font-weight: 700;
 }
 
-.member-group {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-  gap: 0.75rem;
-  margin-bottom: 0.5rem;
-  background-color: #ffffff;
+.segment:has(input:focus-visible) {
+  outline: 3px solid #f5a623;
+  outline-offset: 2px;
 }
 
-.member-group .choice {
-  margin-right: 0;
+
+/* Participants list */
+.participants-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.6rem;
 }
+
+.section-title {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.select-actions {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.select-actions .button {
+  background-color: #eef0ff;
+  border-color: #eef0ff;
+  color: #3730a3;
+}
+
+.select-actions .button:hover {
+  background-color: #e0e4ff;
+}
+
+.participant-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.participant-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 0.4rem 0.75rem;
+  padding: 0.6rem 0.9rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.participant-row:last-child {
+  border-bottom: none;
+}
+
+.participant-row .error {
+  grid-column: 1 / -1;
+}
+
+.participant-name {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-weight: 500;
+}
+
+.participant-share {
+  min-width: 5.5rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.participant-share.muted {
+  color: #6b7280;
+  font-weight: 500;
+}
+
+/* Rows with a text box: name | box  (percentages also get a third column: the rupee share) */
+.participant-row:has(.share-input) {
+  grid-template-columns: 1fr minmax(0, 9rem);
+}
+
+.participant-row.with-preview {
+  grid-template-columns: 1fr minmax(0, 7rem) auto;
+}
+
+.share-input {
+  position: relative;
+}
+
+.share-input input[type='text'] {
+  text-align: right;
+}
+
+.share-unit {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #6b7280;
+  pointer-events: none;
+}
+
+.share-input.prefix .share-unit {
+  left: 0.75rem;
+}
+
+.share-input.prefix input[type='text'] {
+  padding-left: 1.7rem;
+}
+
+.share-input.suffix .share-unit {
+  right: 0.75rem;
+}
+
+.share-input.suffix input[type='text'] {
+  padding-right: 1.9rem;
+}
+
 
 .actions {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 0.75rem;
-  padding-top: 0.25rem;
+}
+
+.actions .button {
+  padding: 0.8rem 1rem;
+  border-radius: 10px;
+}
+
+
+/* Small screens: stack things that do not fit side by side */
+@media (max-width: 479px) {
+  .form-card {
+    padding: 1.1rem;
+  }
+
+  .row-2,
+  .segmented {
+    grid-template-columns: 1fr;
+  }
+
+  .participant-row.with-preview {
+    grid-template-columns: 1fr minmax(0, 8rem);
+  }
+
+  .participant-row.with-preview .participant-share {
+    grid-column: 1 / -1;
+  }
 }

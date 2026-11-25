@@ -141,7 +141,7 @@ describe('adding an expense', () => {
     await user.click(screen.getByRole('radio', { name: 'Percentages' }))
     await user.type(screen.getByLabelText('Aarav'), '40')
     await user.type(screen.getByLabelText('Meera'), '60')
-    await user.click(screen.getByRole('button', { name: 'Save' }))
+    await user.click(screen.getByRole('button', { name: 'Save expense' }))
 
     expect(screen.getByRole('heading', { name: 'Expenses' })).toBeInTheDocument()
     expect(screen.getByRole('status')).toHaveTextContent('Expense added')
@@ -156,7 +156,7 @@ describe('adding an expense', () => {
 
   it('does not save anything when the form is invalid', async () => {
     const { user, store } = renderApp('/expenses/new')
-    await user.click(screen.getByRole('button', { name: 'Save' }))
+    await user.click(screen.getByRole('button', { name: 'Save expense' }))
 
     expect(screen.getByRole('heading', { name: 'Add expense' })).toBeInTheDocument()
     expect(store.getState().trip.expenses).toHaveLength(6)

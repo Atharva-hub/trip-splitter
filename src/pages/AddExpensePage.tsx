@@ -20,8 +20,11 @@ export default function AddExpensePage() {
 
   return (
     <div className="form-page">
-      <h1>Add expense</h1>
-      <ExpenseForm members={members} onSave={handleSave} onCancel={handleCancel} />
+      <div className="form-card">
+        <h1>Add expense</h1>
+        <p className="form-subtitle">Record a payment and choose how to share the cost.</p>
+        <ExpenseForm members={members} onSave={handleSave} onCancel={handleCancel} />
+      </div>
     </div>
   )
 }

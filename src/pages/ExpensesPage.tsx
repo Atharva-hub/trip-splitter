@@ -100,7 +100,7 @@ export default function ExpensesPage() {
                 </select>
               </div>
               <p className="total" aria-live="polite">
-                Total shown: <strong>{formatRupees(totalAmount(shown))}</strong>
+                Total Expense: <strong>{formatRupees(totalAmount(shown))}</strong>
               </p>
             </div>
 
