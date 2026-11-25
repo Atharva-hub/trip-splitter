@@ -1,46 +1,81 @@
 # Trip Splitter
 
-A two-page app to record shared trip expenses and see who owes whom.
-React, Redux Toolkit, React Router and strict TypeScript. No backend: data lives in the browser.
+Trip Splitter is a shared expense management application that simplifies group expense tracking, cost distribution and balance calculations. It focuses on financial accuracy, transparent calculations and an intuitive user experience.
 
-## How to run the Project
+## Tech Stack
 
-Needs Node.js 22.12 or newer.
+- React
+- TypeScript (Strict Mode)
+- Redux Toolkit
+- React Router
+- Vite
+- localStorage
 
-    npm install
-    npm run dev          # http://localhost:5173
-    npm run typecheck
-    npm run lint
-    npm test
-    npm run build
+## Getting Started
 
-Not finished: nothing from the brief is missing.
+Prerequisite: Node.js 22.12 or newer.
 
-## The paisa rule
+```bash
+npm install
+npm run dev
+```
 
-All money is an integer number of paise. Everyone's share is rounded down, then the leftover paise go one at a time to the people with the largest cut-off fraction, ties go to whoever is listed first. So ₹100 between 3 is ₹33.34 + ₹33.33 + ₹33.33. Equal and percentage splits use the same function (`src/logic/split.ts`), so balances always add up to exactly ₹0.
+Open http://localhost:5173 in your browser.
 
-## Three decisions
+## Testing and Production Build
 
-1. Logic is plain TypeScript, outside React. Splitting, balances and validation live in
-   `src/logic/` and are tested without React. Components only render and handle
-   events. `validateExpenseForm` returns either a typed expense or one message per broken field.
-2. Redux holds shared data and saves it. Members and expenses are needed by both pages, so they
-   live in Redux; form text, the category filter and the "Expense added" message stay local.
-   localStorage is read and written once, in the store setup: one `subscribe` sees every change,
-   reducers stay pure, and nothing can forget to save. Saved data is checked at runtime, not
-   cast; if invalid, the app starts from the sample data.
-3. The form checks every field on Save, and all fields stay required. Errors are calculated from
-   the current values instead of being stored, so each one shows next to its field after the first Save and disappears as soon as the field is fixed. Description stays required, as the brief says: without it, two "Food" expenses would look identical in the table and the delete prompt,and a rule that depends on another field would be harder to validate.
+```bash
+npm run typecheck
+npm run lint
+npm test
+npm run build
+```
+
+## Features
+
+- Add and delete expenses.
+- Equal, exact and percentage-based splitting.
+- Automatic member balance calculations.
+- Live split preview.
+- Participant selection and select-all controls.
+- Category filtering and expense totals.
+- Persistent browser storage.
+- Responsive design and form validation.
+
+## Three Engineering Decisions
+
+### 1. Financial Accuracy and Reusable Logic
+
+JavaScript floating-point arithmetic can introduce rounding discrepancies in financial calculations. To avoid this, all monetary values are represented as integer paise.
+
+I used the largest remainder method to distribute leftover paise after rounding, with ties resolved by participant order. This ensures that individual shares always add up to the original expense and member balances sum to zero.
+
+Equal and percentage splits reuse the same weighted calculation function, reducing code duplication and maintaining consistent rounding behaviour.
+
+### 2. State Management and Persistence
+
+Members and expenses are stored in Redux because they are shared across multiple pages. Balances and totals are calculated from existing expenses rather than stored separately, preventing inconsistent data when expenses are added or deleted.
+
+Form inputs and category filters remain local because they are temporary and component-specific.
+
+I chose a store subscription to centralize localStorage operations instead of duplicating persistence logic across components or introducing side effects inside reducers.
+
+Saved data is validated at runtime because TypeScript cannot guarantee the validity of externally stored JSON. Invalid or missing data falls back to sample data.
+
+### 3. User Experience and Preventive Validation
+
+I redesigned the expense form using an amount-first approach because the expense amount determines subsequent split calculations.
+
+The live split preview allows users to verify individual shares before saving an expense. Select-all controls simplify member selection and reduce unnecessary interactions. A character counter communicates description constraints in advance.
+
+Business logic and validation are separated from UI components to improve maintainability, reusability and independent testing.
 
 ## Future Improvements
 
-- A "who pays whom" settle-up list, with UPI payment so balances can be cleared from the app.
-- Edit an expense, and add Undo after deleting one.
-- Accounts and shared trips, so friends can add expenses from their own phones.
+- UPI integration: Enable users to initiate payments through UPI.
+- **Receipt scanning:** Use OCR to extract expense details from receipts and automatically populate editable form fields.
+- **Budget management:** Allow users to set spending limits and receive overspending alerts.
 
-## How I used AI
+## How I Used AI
 
-I used Claude as a development and learning assistant: it generated the initial implementation
-and helped me understand TypeScript and Redux Toolkit concepts as I went. I reviewed the code,
-customized the UI, and validated the application through type checking, linting, and testing.
+I used Claude to assist with the initial implementation and understand TypeScript and Redux Toolkit concepts. I reviewed the code, redesigned the expense form to improve usability, and verified the application through type checking, linting and testing.
