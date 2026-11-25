@@ -46,3 +46,8 @@ function (`src/logic/split.ts`), so balances always add up to exactly ₹0.
 - A "who pays whom" settle-up list, and cards instead of a table on phones.
 - Tests in other time zones and for keyboard-only use of the form.
 
+## How I used AI
+
+I used Claude as a development and learning assistant: it generated the initial implementation
+and helped me understand TypeScript and Redux Toolkit concepts as I went. I reviewed the code,
+customized the UI, and validated the application through type checking, linting, and testing.
