@@ -12,7 +12,6 @@ describe('computeShares: equal', () => {
   })
 
   it('gives the extra paise to the first people in the list', () => {
-    // 10 paise between 4 people: 2 extra paise -> first two people
     const shares = computeShares(10, { type: 'equal', memberIds: ['a', 'b', 'c', 'd'] })
     expect(shares).toEqual({ a: 3, b: 3, c: 2, d: 2 })
   })
@@ -62,7 +61,6 @@ describe('computeShares: percent', () => {
   })
 
   it('gives leftover paise to the biggest fraction, not to a 0% person', () => {
-    // ₹0.01 (1 paisa) at 0% / 33.33% / 66.67%  -> the paisa goes to the 66.67% person
     const shares = computeShares(1, { type: 'percent', shares: { a: 0, b: 33.33, c: 66.67 } })
     expect(shares).toEqual({ a: 0, b: 0, c: 1 })
   })

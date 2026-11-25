@@ -39,7 +39,6 @@ describe('calculateBalances', () => {
     const balances = calculateBalances(members, [
       expense({ amount: 10000, paidBy: 'a', split: { type: 'equal', memberIds: ['a', 'b', 'c'] } }),
     ])
-    // Asha paid 10000 and owes 3334 herself
     expect(balances).toEqual({ a: 6666, b: -3333, c: -3333 })
     expect(sumOf(balances)).toBe(0)
   })
@@ -58,11 +57,6 @@ describe('calculateBalances', () => {
   })
 
   it('gives the right balances for the sample data', () => {
-    // Worked out by hand (all in paise). Example, Aarav (m1):
-    //   paid   2,400,000 (villa) + 149,999 (cab)                      = 2,549,999
-    //   owes   480,000 (villa) + 81,250 (dinner) + 50,000 (scooter)
-    //        + 33,334 (groceries, he gets the extra paisa) + 49,995 (cab) = 694,579
-    //   balance = 2,549,999 - 694,579 = 1,855,420
     expect(calculateBalances(sampleData.members, sampleData.expenses)).toEqual({
       m1: 1855420,
       m2: -369578,

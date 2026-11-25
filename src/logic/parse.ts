@@ -1,8 +1,3 @@
-// Data that comes from OUTSIDE the app (a JSON file, localStorage) is `unknown`:
-// TypeScript cannot know what is inside. These functions check the data at runtime
-// and only return it when it is really the right shape. That is how we get typed
-// data without using `as` casts.
-
 import { CATEGORIES } from '../types'
 import type { Category, Expense, Member, Split, TripData } from '../types'
 import { isValidISODate } from './dates'
@@ -10,7 +5,6 @@ import { percentToHundredths } from './money'
 
 type UnknownRecord = Record<string, unknown>
 
-// A "type guard": when this returns true, TypeScript treats `value` as an UnknownRecord.
 function isRecord(value: unknown): value is UnknownRecord {
   return typeof value === 'object' && value !== null && !Array.isArray(value)
 }
@@ -23,7 +17,6 @@ function isStringArray(value: unknown): value is string[] {
   return Array.isArray(value) && value.every((item) => typeof item === 'string')
 }
 
-// Reads { "m1": 100, "m2": 50 } into a Record<string, number>, or returns null.
 function parseNumberRecord(value: unknown): Record<string, number> | null {
   if (!isRecord(value)) {
     return null
@@ -63,11 +56,9 @@ function parseSplit(value: unknown, amount: number, memberIds: Set<string>): Spl
     }
     const values = Object.values(shares)
     if (value.type === 'exact') {
-      // whole paise only, and they must add up to the amount exactly
       const exactOk = values.every(Number.isInteger) && sum(values) === amount
       return exactOk ? { type: 'exact', shares } : null
     }
-    // percentages must add up to exactly 100
     const percentOk = sum(values.map(percentToHundredths)) === 10000
     return percentOk ? { type: 'percent', shares } : null
   }
@@ -103,7 +94,7 @@ export function parseExpenses(value: unknown, members: Member[]): Expense[] | nu
   for (const item of value) {
     const expense = parseExpense(item, memberIds)
     if (expense === null) {
-      return null // one bad expense means we do not trust the whole list
+      return null
     }
     expenses.push(expense)
   }
@@ -124,7 +115,6 @@ function parseMembers(value: unknown): Member[] | null {
   return members
 }
 
-// Checks a whole { members, expenses } object (used for the sample data file).
 export function parseTripData(value: unknown): TripData | null {
   if (!isRecord(value)) {
     return null

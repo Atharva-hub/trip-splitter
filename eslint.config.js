@@ -19,7 +19,6 @@ export default tseslint.config(
     plugins: { 'react-hooks': reactHooks },
     rules: {
       ...reactHooks.configs.recommended.rules,
-      // No "as" casts (except "as const"), no "!" and no any.
       '@typescript-eslint/consistent-type-assertions': ['error', { assertionStyle: 'never' }],
       '@typescript-eslint/no-non-null-assertion': 'error',
       '@typescript-eslint/no-explicit-any': 'error',
@@ -27,7 +26,6 @@ export default tseslint.config(
     },
   },
   {
-    // Plain JS files (like this config) are not part of the TypeScript project.
     files: ['**/*.js'],
     extends: [tseslint.configs.disableTypeChecked],
   },

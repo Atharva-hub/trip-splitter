@@ -1,61 +1,11 @@
-/*
-  Trip Splitter - main stylesheet
-
-  Sections:
-  1. Colours and variables
-  2. Basic page styles
-  3. Navbar
-  4. Page layout
-  5. Balance cards
-  6. Toolbar (filter and total)
-  7. Expenses table
-  8. Messages and empty states
-  9. Buttons
-  10. Add expense form
-*/
-
-
-/* ===== 1. Colours and variables ===== */
-/* All colours are kept here so I only need to change them in one place */
-
-:root {
-  /* page colours */
-  --bg: #f7f8fa;
-  --card: #ffffff;
-  --text: #111827;
-  --muted: #6b7280;
-  --border: #e5e7eb;
-  --input-border: #d1d5db;
-
-  /* main colour (indigo) */
-  --primary: #4338ca;
-  --primary-dark: #3730a3;
-  --primary-soft: #eef0ff;
-
-  /* green = gets money back, red = owes money */
-  --green: #12703f;
-  --green-soft: #e6f5ec;
-  --red: #b3261e;
-  --red-soft: #fcebea;
-
-  /* corners and shadows */
-  --radius: 10px;
-  --radius-small: 6px;
-  --shadow: 0 1px 3px rgba(16, 24, 40, 0.08);
-  --shadow-lift: 0 4px 12px rgba(16, 24, 40, 0.1);
-}
-
-
-/* ===== 2. Basic page styles ===== */
-
 * {
   box-sizing: border-box;
 }
 
 body {
   margin: 0;
-  background-color: var(--bg);
-  color: var(--text);
+  background-color: #f7f8fa;
+  color: #111827;
   font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   line-height: 1.5;
 }
@@ -73,21 +23,19 @@ h2 {
 }
 
 a {
-  color: var(--primary);
+  color: #4338ca;
   font-weight: 600;
 }
 
 a:hover {
-  color: var(--primary-dark);
+  color: #3730a3;
 }
 
-/* orange outline so keyboard users can see where they are */
 :focus-visible {
   outline: 3px solid #f5a623;
   outline-offset: 2px;
 }
 
-/* hides text on screen but screen readers can still read it */
 .visually-hidden {
   position: absolute;
   width: 1px;
@@ -98,14 +46,12 @@ a:hover {
 }
 
 
-/* ===== 3. Navbar ===== */
-
 .navbar {
   position: sticky;
   top: 0;
   z-index: 10;
   background-color: #ffffff;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid #e5e7eb;
 }
 
 .navbar-inner {
@@ -118,38 +64,34 @@ a:hover {
   gap: 0.5rem;
 }
 
-/* app name on the left, margin-right: auto pushes the links to the right */
 .brand {
   font-size: 1.1rem;
   font-weight: 800;
-  color: var(--primary-dark);
+  color: #3730a3;
   margin-right: auto;
 }
 
 .navbar a {
   padding: 0.4rem 0.8rem;
   border-radius: 999px;
-  color: var(--muted);
+  color: #6b7280;
   font-weight: 600;
   text-decoration: none;
 }
 
 .navbar a:hover {
-  background-color: var(--bg);
-  color: var(--text);
+  background-color: #f7f8fa;
+  color: #111827;
 }
 
-/* the link of the page we are currently on */
 .navbar a.active {
-  background-color: var(--primary-soft);
-  color: var(--primary-dark);
+  background-color: #eef0ff;
+  color: #3730a3;
   font-weight: 700;
   text-decoration: underline;
   text-underline-offset: 5px;
 }
 
-
-/* ===== 4. Page layout ===== */
 
 .page {
   max-width: 960px;
@@ -157,8 +99,6 @@ a:hover {
   padding: 2rem 1rem 4rem 1rem;
 }
 
-
-/* ===== 5. Balance cards ===== */
 
 .balances {
   list-style: none;
@@ -174,38 +114,33 @@ a:hover {
   flex-direction: column;
   gap: 0.15rem;
   padding: 0.85rem 1rem;
-  background-color: var(--card);
-  border: 1px solid var(--border);
-  border-top: 4px solid var(--muted);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-top: 4px solid #6b7280;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(16, 24, 40, 0.08);
 }
 
 .balance-name {
   font-weight: 700;
-  color: var(--text);
+  color: #111827;
 }
 
-/* person gets money back */
 .balance.positive {
-  border-top-color: var(--green);
-  color: var(--green);
+  border-top-color: #12703f;
+  color: #12703f;
 }
 
-/* person owes money */
 .balance.negative {
-  border-top-color: var(--red);
-  color: var(--red);
+  border-top-color: #b3261e;
+  color: #b3261e;
 }
 
-/* person is settled */
 .balance.neutral {
-  border-top-color: var(--border);
-  color: var(--muted);
+  border-top-color: #e5e7eb;
+  color: #6b7280;
 }
 
-
-/* ===== 6. Toolbar (filter and total) ===== */
 
 .toolbar {
   display: flex;
@@ -223,27 +158,24 @@ a:hover {
 .total {
   margin: 0;
   padding: 0.45rem 0.9rem;
-  background-color: var(--card);
-  border: 1px solid var(--border);
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
   border-radius: 999px;
-  color: var(--muted);
+  color: #6b7280;
 }
 
 .total strong {
-  color: var(--text);
+  color: #111827;
 }
 
 
-/* ===== 7. Expenses table ===== */
-
-/* the table scrolls sideways on small screens */
 .table-scroll {
   position: relative;
   overflow-x: auto;
-  background-color: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(16, 24, 40, 0.08);
 }
 
 table {
@@ -256,11 +188,10 @@ th,
 td {
   padding: 0.75rem 1rem;
   text-align: left;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid #e5e7eb;
   white-space: nowrap;
 }
 
-/* 2nd column is the description, it is allowed to wrap */
 td:nth-child(2) {
   white-space: normal;
   min-width: 10rem;
@@ -269,7 +200,7 @@ td:nth-child(2) {
 
 th {
   background-color: #f8f9fc;
-  color: var(--muted);
+  color: #6b7280;
   font-size: 0.75rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -283,7 +214,6 @@ tbody tr:last-child td {
   border-bottom: none;
 }
 
-/* money columns are right aligned */
 .number {
   text-align: right;
 }
@@ -293,30 +223,26 @@ td.number {
 }
 
 
-/* ===== 8. Messages and empty states ===== */
-
-/* green message, for example "Expense added" */
 .notice {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
   padding: 0.7rem 1rem;
-  background-color: var(--green-soft);
+  background-color: #e6f5ec;
   border: 1px solid #9fd3b3;
-  border-radius: var(--radius);
+  border-radius: 10px;
   color: #0d4f2c;
   font-weight: 600;
 }
 
-/* shown when there are no expenses yet */
 .empty {
   padding: 2.5rem 1rem;
   text-align: center;
-  background-color: var(--card);
-  border: 2px dashed var(--border);
-  border-radius: var(--radius);
-  color: var(--muted);
+  background-color: #ffffff;
+  border: 2px dashed #e5e7eb;
+  border-radius: 10px;
+  color: #6b7280;
 }
 
 .empty p {
@@ -324,47 +250,42 @@ td.number {
 }
 
 
-/* ===== 9. Buttons ===== */
-
-/* normal white button */
 .button {
   font: inherit;
   font-weight: 600;
   padding: 0.55rem 1.1rem;
-  background-color: var(--card);
-  color: var(--text);
-  border: 1px solid var(--input-border);
-  border-radius: var(--radius-small);
+  background-color: #ffffff;
+  color: #111827;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
   cursor: pointer;
 }
 
 .button:hover {
-  background-color: var(--bg);
+  background-color: #f7f8fa;
 }
 
-/* main button, for example "Save" */
 .button.primary {
-  background-color: var(--primary);
-  border-color: var(--primary);
+  background-color: #4338ca;
+  border-color: #4338ca;
   color: #ffffff;
-  box-shadow: var(--shadow);
+  box-shadow: 0 1px 3px rgba(16, 24, 40, 0.08);
 }
 
 .button.primary:hover {
-  background-color: var(--primary-dark);
-  border-color: var(--primary-dark);
-  box-shadow: var(--shadow-lift);
+  background-color: #3730a3;
+  border-color: #3730a3;
+  box-shadow: 0 4px 12px rgba(16, 24, 40, 0.1);
 }
 
-/* red button, for example "Delete" */
 .button.danger {
-  color: var(--red);
+  color: #b3261e;
   border-color: #e3b1ad;
 }
 
 .button.danger:hover {
-  background-color: var(--red-soft);
-  border-color: var(--red);
+  background-color: #fcebea;
+  border-color: #b3261e;
 }
 
 .button.small {
@@ -372,7 +293,6 @@ td.number {
   font-size: 0.85rem;
 }
 
-/* button that looks like a link */
 .button.link {
   padding: 0.25rem;
   background: none;
@@ -383,28 +303,22 @@ td.number {
 }
 
 
-/* ===== 10. Add expense form ===== */
-
-/* keeps the heading and form together in the middle of the page */
 .form-page {
   max-width: 640px;
   margin: 0 auto;
 }
 
-/* the white card around the form */
 .form {
   display: grid;
   gap: 1.1rem 1.25rem;
   max-width: 640px;
   padding: 1.5rem;
-  background-color: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(16, 24, 40, 0.08);
 }
 
-/* on bigger screens the form has 2 columns */
-/* description, split section and buttons still take the full width */
 @media (min-width: 600px) {
   .form {
     grid-template-columns: 1fr 1fr;
@@ -417,7 +331,6 @@ td.number {
   }
 }
 
-/* one label + input */
 .field {
   display: flex;
   flex-direction: column;
@@ -429,7 +342,6 @@ label {
   font-weight: 600;
 }
 
-/* text boxes, date picker and dropdowns */
 input[type='text'],
 input[type='date'],
 select {
@@ -437,9 +349,9 @@ select {
   font: inherit;
   padding: 0.55rem 0.7rem;
   background-color: #ffffff;
-  color: var(--text);
-  border: 1px solid var(--input-border);
-  border-radius: var(--radius-small);
+  color: #111827;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
 }
 
 input[type='text']:hover,
@@ -451,8 +363,8 @@ select:hover {
 input[type='text']:focus,
 input[type='date']:focus,
 select:focus {
-  border-color: var(--primary);
-  box-shadow: 0 0 0 3px var(--primary-soft);
+  border-color: #4338ca;
+  box-shadow: 0 0 0 3px #eef0ff;
 }
 
 input[type='radio'],
@@ -460,20 +372,18 @@ input[type='checkbox'] {
   width: 1.05rem;
   height: 1.05rem;
   margin: 0;
-  accent-color: var(--primary);
+  accent-color: #4338ca;
 }
 
-/* red border when the input has an error */
 input[aria-invalid='true'],
 select[aria-invalid='true'] {
-  border: 2px solid var(--red);
+  border: 2px solid #b3261e;
   background-color: #fffafa;
 }
 
-/* error text under an input */
 .error {
   margin: 0;
-  color: var(--red);
+  color: #b3261e;
   font-size: 0.875rem;
   font-weight: 600;
 }
@@ -482,8 +392,8 @@ fieldset {
   margin: 0;
   padding: 1rem;
   min-width: 0;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
 }
 
 legend {
@@ -491,7 +401,6 @@ legend {
   font-weight: 700;
 }
 
-/* box for choosing how to split the expense */
 .split {
   background-color: #fafbfd;
 }
@@ -503,7 +412,6 @@ legend {
   margin-bottom: 1rem;
 }
 
-/* one radio button or checkbox with its text */
 .choice {
   display: inline-flex;
   align-items: center;
@@ -512,40 +420,36 @@ legend {
   cursor: pointer;
 }
 
-/* split options look like round pills */
 .radio-row .choice {
   padding: 0.45rem 0.9rem;
-  background-color: var(--card);
-  border: 1px solid var(--border);
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
   border-radius: 999px;
 }
 
 .radio-row .choice:hover {
-  border-color: var(--input-border);
+  border-color: #d1d5db;
 }
 
-/* the pill that is selected */
 .radio-row .choice:has(input:checked) {
-  background-color: var(--primary-soft);
-  border-color: var(--primary);
-  color: var(--primary-dark);
+  background-color: #eef0ff;
+  border-color: #4338ca;
+  color: #3730a3;
   font-weight: 700;
 }
 
-/* list of members to tick */
 .member-group {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
   gap: 0.75rem;
   margin-bottom: 0.5rem;
-  background-color: var(--card);
+  background-color: #ffffff;
 }
 
 .member-group .choice {
   margin-right: 0;
 }
 
-/* Save and Cancel buttons */
 .actions {
   display: flex;
   gap: 0.75rem;

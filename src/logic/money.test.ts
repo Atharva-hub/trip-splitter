@@ -10,7 +10,6 @@ describe('parseScaledNumber', () => {
   })
 
   it('has no floating point surprises', () => {
-    // 19.99 * 100 = 1998.9999999999998 in plain JavaScript maths
     expect(parseScaledNumber('19.99', 2)).toEqual({ ok: true, value: 1999 })
     expect(parseScaledNumber('1.15', 2)).toEqual({ ok: true, value: 115 })
   })

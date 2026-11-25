@@ -10,7 +10,7 @@ interface Props {
   members: Member[]
   onSave: (expense: NewExpense) => void
   onCancel: () => void
-  today?: string // lets tests pick "today"; the real app uses the real date
+  today?: string
 }
 
 const SPLIT_OPTIONS: { type: SplitType; label: string }[] = [
@@ -19,7 +19,6 @@ const SPLIT_OPTIONS: { type: SplitType; label: string }[] = [
   { type: 'percent', label: 'Percentages' },
 ]
 
-// The two attributes that tell screen readers "this input is invalid, and here is why".
 function errorProps(id: string, error: string | undefined) {
   return {
     'aria-invalid': error !== undefined,
@@ -27,7 +26,6 @@ function errorProps(id: string, error: string | undefined) {
   }
 }
 
-// Points a group of inputs at the message about the whole split (if there is one).
 function splitErrorId(errors: FormErrors): string | undefined {
   return errors.split !== undefined ? 'split-error' : undefined
 }
@@ -43,7 +41,6 @@ function ErrorMessage({ id, message }: { id: string; message: string | undefined
   )
 }
 
-// A label + an input + its error message, stacked.
 function Field({
   id,
   label,
@@ -65,21 +62,15 @@ function Field({
 }
 
 export default function ExpenseForm({ members, onSave, onCancel, today = todayISO() }: Props) {
-  // All the form's values live in ONE state object. Everything is text until we validate.
   const [values, setValues] = useState<ExpenseFormValues>(() => makeEmptyFormValues(members, today))
-  // How many times Save was pressed. Errors only show after the first press.
   const [saveAttempts, setSaveAttempts] = useState(0)
   const formRef = useRef<HTMLFormElement>(null)
 
-  // Errors are DERIVED from the values on every render, not stored. So they
-  // can never be out of date: fix a field and its error disappears at once.
   const result = validateExpenseForm(values, members, today)
   const errors: FormErrors = saveAttempts > 0 && !result.ok ? result.errors : {}
 
-  // After a failed Save, move the keyboard focus to the first field with an error.
   useEffect(() => {
     if (saveAttempts > 0) {
-      // Either an input marked invalid, or the first input of a split group that has an error.
       formRef.current
         ?.querySelector<HTMLElement>('[aria-invalid="true"], fieldset[aria-describedby] input')
         ?.focus()
@@ -104,7 +95,7 @@ export default function ExpenseForm({ members, onSave, onCancel, today = todayIS
   }
 
   function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
-    event.preventDefault() // stop the browser reloading the page
+    event.preventDefault()
     setSaveAttempts((count) => count + 1)
     if (result.ok) {
       onSave(result.expense)
@@ -112,7 +103,6 @@ export default function ExpenseForm({ members, onSave, onCancel, today = todayIS
   }
 
   return (
-    // noValidate: we do our own validation, so the browser's pop-ups stay out of the way.
     <form ref={formRef} onSubmit={handleSubmit} noValidate className="form">
       <Field id="description" label="Description" error={errors.description}>
         <input
@@ -266,7 +256,6 @@ export default function ExpenseForm({ members, onSave, onCancel, today = todayIS
   )
 }
 
-// One text box per member, used by both "Exact amounts" and "Percentages".
 function ShareBoxes({
   legend,
   members,

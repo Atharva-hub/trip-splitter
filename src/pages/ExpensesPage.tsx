@@ -15,8 +15,6 @@ import { useAppDispatch, useAppSelector } from '../store/hooks'
 import { CATEGORIES } from '../types'
 import type { Expense } from '../types'
 
-// The Add expense page sends a message through the router: navigate('/', { state: { flash } }).
-// Router state is `unknown`, so we check it before using it.
 function readFlashMessage(state: unknown): string | null {
   if (typeof state === 'object' && state !== null && 'flash' in state) {
     return typeof state.flash === 'string' ? state.flash : null
@@ -29,15 +27,12 @@ export default function ExpensesPage() {
   const members = useAppSelector(selectMembers)
   const expenses = useAppSelector(selectExpenses)
 
-  // Only this page cares about the filter, so it is component state, not Redux.
   const [filter, setFilter] = useState<CategoryFilter>('All')
 
   const location = useLocation()
   const navigate = useNavigate()
   const [message, setMessage] = useState<string | null>(() => readFlashMessage(location.state))
 
-  // Once the message is copied into state, clear it from the history entry,
-  // otherwise it would show up again after a page reload.
   useEffect(() => {
     if (readFlashMessage(location.state) !== null) {
       void navigate(location.pathname, { replace: true, state: null })
@@ -47,7 +42,6 @@ export default function ExpensesPage() {
   const shown = sortNewestFirst(filterByCategory(expenses, filter))
 
   function handleDelete(expense: Expense) {
-    // window.confirm is built in, works with the keyboard and screen readers.
     if (window.confirm(`Delete "${expense.description}"? This cannot be undone.`)) {
       dispatch(expenseDeleted(expense.id))
     }
@@ -72,7 +66,6 @@ export default function ExpensesPage() {
         </p>
       )}
 
-      {/* Balances use ALL expenses, even when the table is filtered. */}
       <BalanceList members={members} expenses={expenses} />
 
       <section aria-labelledby="expenses-heading">

@@ -51,14 +51,13 @@ describe('dates', () => {
 
   it('knows real dates from fake ones', () => {
     expect(isValidISODate('2026-02-28')).toBe(true)
-    expect(isValidISODate('2024-02-29')).toBe(true) // leap year
+    expect(isValidISODate('2024-02-29')).toBe(true)
     expect(isValidISODate('2026-02-29')).toBe(false)
     expect(isValidISODate('2026-13-01')).toBe(false)
     expect(isValidISODate('12/03/2026')).toBe(false)
   })
 
   it('uses the local date, not UTC', () => {
-    // 1 am on 5 March in the computer's own time zone
     expect(todayISO(new Date(2026, 2, 5, 1, 0))).toBe('2026-03-05')
   })
 })

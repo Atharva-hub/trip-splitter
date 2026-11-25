@@ -1,6 +1,5 @@
 import type { ExpenseFormValues, Member } from '../types'
 
-// What the Add expense form looks like when it first opens.
 export function makeEmptyFormValues(members: Member[], today: string): ExpenseFormValues {
   return {
     description: '',
@@ -9,7 +8,7 @@ export function makeEmptyFormValues(members: Member[], today: string): ExpenseFo
     date: today,
     category: '',
     splitType: 'equal',
-    equalMemberIds: members.map((member) => member.id), // everyone ticked to start
+    equalMemberIds: members.map((member) => member.id),
     exactShares: {},
     percentShares: {},
   }

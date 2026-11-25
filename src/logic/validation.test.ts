@@ -10,7 +10,6 @@ const members: Member[] = [
 ]
 const TODAY = '2026-06-15'
 
-// A form that is valid; each test changes one thing.
 function validValues(changes: Partial<ExpenseFormValues> = {}): ExpenseFormValues {
   return {
     ...makeEmptyFormValues(members, TODAY),

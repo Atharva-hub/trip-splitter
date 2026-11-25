@@ -15,7 +15,6 @@ export default function BalanceList({ members, expenses }: Props) {
       <ul className="balances">
         {members.map((member) => {
           const balance = balances[member.id] ?? 0
-          // The words carry the meaning; the colour is only a bonus.
           const tone = balance > 0 ? 'positive' : balance < 0 ? 'negative' : 'neutral'
           return (
             <li key={member.id} className={`balance ${tone}`}>

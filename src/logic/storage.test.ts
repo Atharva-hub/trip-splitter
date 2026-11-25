@@ -2,7 +2,6 @@ import { describe, expect, it } from 'vitest'
 import { sampleData } from '../store/tripSlice'
 import { STORAGE_KEY, loadExpenses, saveExpenses } from './storage'
 
-// A tiny fake localStorage that keeps everything in a plain object.
 function fakeStorage(initial: Record<string, string> = {}) {
   const data = { ...initial }
   return {
@@ -44,7 +43,7 @@ describe('loadExpenses', () => {
 
   it('returns null when an expense does not add up', () => {
     const broken = [
-      { ...expenses[0], split: { type: 'exact', shares: { m1: 1 } } }, // does not equal the amount
+      { ...expenses[0], split: { type: 'exact', shares: { m1: 1 } } },
     ]
     expect(loadExpenses(fakeStorage({ [STORAGE_KEY]: JSON.stringify(broken) }), members)).toBeNull()
   })

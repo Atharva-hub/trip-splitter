@@ -19,7 +19,6 @@ function setup() {
   return { user, onSave, onCancel }
 }
 
-// Fills the parts of the form that are the same in every test.
 async function fillBasics(user: ReturnType<typeof userEvent.setup>) {
   await user.type(screen.getByLabelText('Description'), 'Dinner')
   await user.type(screen.getByLabelText('Amount (₹)'), '300')

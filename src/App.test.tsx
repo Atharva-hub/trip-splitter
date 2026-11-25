@@ -7,7 +7,6 @@ import App from './App'
 import { STORAGE_KEY } from './logic/storage'
 import { makeAppStore } from './store/store'
 
-// Renders the whole app (like main.tsx does), starting at `path`.
 function renderApp(path = '/') {
   const store = makeAppStore(window.localStorage)
   const user = userEvent.setup()
@@ -57,16 +56,16 @@ describe('Expenses page', () => {
   it('shows every member balance from the sample data', () => {
     renderApp()
     const balances = within(screen.getByRole('region', { name: 'Balances' }))
-    expect(balances.getByText('gets back ₹18,554.20')).toBeInTheDocument() // Aarav
-    expect(balances.getByText('owes ₹3,695.78')).toBeInTheDocument() // Diya
-    expect(balances.getByText('gets back ₹554.08')).toBeInTheDocument() // Kabir
-    expect(balances.getByText('owes ₹8,112.50')).toBeInTheDocument() // Meera
-    expect(balances.getByText('owes ₹7,300.00')).toBeInTheDocument() // Rohan
+    expect(balances.getByText('gets back ₹18,554.20')).toBeInTheDocument()
+    expect(balances.getByText('owes ₹3,695.78')).toBeInTheDocument()
+    expect(balances.getByText('gets back ₹554.08')).toBeInTheDocument()
+    expect(balances.getByText('owes ₹8,112.50')).toBeInTheDocument()
+    expect(balances.getByText('owes ₹7,300.00')).toBeInTheDocument()
   })
 
   it('lists expenses newest date first with the split described', () => {
     renderApp()
-    const rows = screen.getAllByRole('row').slice(1) // skip the header row
+    const rows = screen.getAllByRole('row').slice(1)
     expect(rows).toHaveLength(6)
     expect(within(rows[0] ?? document.body).getByText('Airport cab')).toBeInTheDocument()
     expect(within(rows[5] ?? document.body).getByText('Villa booking')).toBeInTheDocument()
@@ -76,10 +75,10 @@ describe('Expenses page', () => {
 
   it('filters by category and totals what is shown', async () => {
     const { user } = renderApp()
-    expect(screen.getByText('₹42,249.99')).toBeInTheDocument() // total of all six
+    expect(screen.getByText('₹42,249.99')).toBeInTheDocument()
 
     await user.selectOptions(screen.getByLabelText('Category'), 'Food')
-    expect(screen.getAllByRole('row')).toHaveLength(3) // header + 2 food expenses
+    expect(screen.getAllByRole('row')).toHaveLength(3)
     expect(screen.getByText('₹4,250.00')).toBeInTheDocument()
   })
 
@@ -100,8 +99,6 @@ describe('Expenses page', () => {
 
     expect(confirmSpy).toHaveBeenCalledTimes(1)
     expect(screen.queryByText('Villa booking')).not.toBeInTheDocument()
-    // Aarav paid the villa (₹24,000) and owed ₹4,800 of it, so without it
-    // his balance drops by ₹19,200: 18,554.20 - 19,200.00 = -645.80
     expect(screen.queryByText('gets back ₹18,554.20')).not.toBeInTheDocument()
     expect(screen.getByText('owes ₹645.80')).toBeInTheDocument()
   })
@@ -146,13 +143,11 @@ describe('adding an expense', () => {
     await user.type(screen.getByLabelText('Meera'), '60')
     await user.click(screen.getByRole('button', { name: 'Save' }))
 
-    // back on the Expenses page, with the message
     expect(screen.getByRole('heading', { name: 'Expenses' })).toBeInTheDocument()
     expect(screen.getByRole('status')).toHaveTextContent('Expense added')
     expect(screen.getByText('Sunset cruise')).toBeInTheDocument()
     expect(screen.getByText('By percentage, 2 people')).toBeInTheDocument()
 
-    // Aarav owes 400 more (18,554.20 - 400.00), Meera is owed 400 more (-8,112.50 + 400.00)
     expect(screen.getByText('gets back ₹18,154.20')).toBeInTheDocument()
     expect(screen.getByText('owes ₹7,712.50')).toBeInTheDocument()
 

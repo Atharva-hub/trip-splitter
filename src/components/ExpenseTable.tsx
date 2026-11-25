@@ -5,14 +5,13 @@ import { formatRupees } from '../logic/money'
 import type { Expense, Member } from '../types'
 
 interface Props {
-  expenses: Expense[] // already filtered and sorted by the page
+  expenses: Expense[]
   members: Member[]
   onDelete: (expense: Expense) => void
 }
 
 export default function ExpenseTable({ expenses, members, onDelete }: Props) {
   return (
-    // On small screens the table scrolls sideways. tabIndex lets keyboard users scroll it.
     <div className="table-scroll" role="region" aria-label="Expenses table" tabIndex={0}>
       <table>
         <thead>
