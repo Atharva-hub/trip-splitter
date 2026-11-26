@@ -44,7 +44,7 @@ npm run build
 
 ## Three Engineering Decisions
 
-### 1. Financial Accuracy and Reusable Logic
+### 1. **Financial Accuracy and Reusable Logic**
 
 JavaScript floating-point arithmetic can introduce rounding discrepancies in financial calculations. To avoid this, all monetary values are represented as integer paise.
 
@@ -52,7 +52,7 @@ I used the largest remainder method to distribute leftover paise after rounding,
 
 Equal and percentage splits reuse the same weighted calculation function, reducing code duplication and maintaining consistent rounding behaviour.
 
-### 2. State Management and Persistence
+### 2. **State Management and Persistence**
 
 Members and expenses are stored in Redux because they are shared across multiple pages. Balances and totals are calculated from existing expenses rather than stored separately, preventing inconsistent data when expenses are added or deleted.
 
@@ -62,7 +62,7 @@ I chose a store subscription to centralize localStorage operations instead of du
 
 Saved data is validated at runtime because TypeScript cannot guarantee the validity of externally stored JSON. Invalid or missing data falls back to sample data.
 
-### 3. User Experience and Preventive Validation
+### 3. **User Experience and Preventive Validation**
 
 I redesigned the expense form using an amount-first approach because the expense amount determines subsequent split calculations.
 
@@ -72,7 +72,7 @@ Business logic and validation are separated from UI components to improve mainta
 
 ## Future Improvements
 
-- UPI integration: Enable users to initiate payments through UPI.
+- **UPI integration**: Enable users to initiate payments through UPI.
 - **Receipt scanning:** Use OCR to extract expense details from receipts and automatically populate editable form fields.
 - **Budget management:** Allow users to set spending limits and receive overspending alerts.
 
